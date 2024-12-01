@@ -9,7 +9,25 @@ public class Day01 : BaseDay
         _input = File.ReadAllText(InputFilePath);
     }
 
-    public override ValueTask<string> Solve_1() => new($"Solution to {ClassPrefix} {CalculateIndex()}, part 1");
+    public override ValueTask<string> Solve_1() => new(CalculatePart1(_input).ToString());
 
-    public override ValueTask<string> Solve_2() => new($"Solution to {ClassPrefix} {CalculateIndex()}, part 2");
+    private int CalculatePart1(string input)
+    {
+        var b = input.Split(Environment.NewLine).Select(x => x.Split("   ")).ToArray();
+        var column1 = b.Select(x => x[0]).Select(int.Parse).OrderBy(x => x);
+        var column2 = b.Select(x => x[1]).Select(int.Parse).OrderBy(x => x);
+
+        return column1.Zip(column2).Select(x => Math.Abs(x.First - x.Second)).Sum();
+    }
+
+    public override ValueTask<string> Solve_2() => new(CalculatePart2(_input).ToString());
+
+    private int CalculatePart2(string input)
+    {
+        var b = input.Split(Environment.NewLine).Select(x => x.Split("   ")).ToArray();
+        var column1 = b.Select(x => x[0]).Select(int.Parse).OrderBy(x => x);
+        var column2 = b.Select(x => x[1]).Select(int.Parse);
+
+        return column1.Zip(column2).Select(x => x.First * column2.Count(y => y == x.First)).Sum();
+    }
 }
