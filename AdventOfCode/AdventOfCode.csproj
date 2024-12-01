@@ -19,5 +19,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+  
+  <ItemGroup>
+    <Using Include="AoCHelper" />
+  </ItemGroup>
 
 </Project>
